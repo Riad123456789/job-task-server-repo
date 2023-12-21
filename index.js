@@ -87,7 +87,6 @@ async function run() {
             const query = { email: email }
             const options = { upsert: true }
             const isExist = await userCollection.findOne(query)
-            // console.log('User found?----->', isExist)
             if (isExist) return res.send(isExist)
             const result = await userCollection.updateOne(
                 query,
@@ -98,6 +97,7 @@ async function run() {
             )
             res.send(result)
         })
+        
 
         // Send a ping to confirm a successful connection
         await client.db('admin').command({ ping: 1 })
