@@ -47,6 +47,7 @@ async function run() {
     try {
 
         const userCollection = client.db("jobTaskDB").collection("users");
+        const TaskCollection = client.db("jobTaskDB").collection("Task");
 
         // auth related api
         app.post('/jwt', async (req, res) => {
@@ -97,6 +98,22 @@ async function run() {
             )
             res.send(result)
         })
+
+
+
+        app.post('/AllTask', async (req, res) => {
+            const data = req.body
+            const result = await TaskCollection.insertOne(data)
+            res.send(result)
+        })
+
+
+        app.get('/getAllTask', async (req, res) => {
+            const result = await TaskCollection.find().toArray()
+            res.send(result)
+        })
+
+
         
 
         // Send a ping to confirm a successful connection
